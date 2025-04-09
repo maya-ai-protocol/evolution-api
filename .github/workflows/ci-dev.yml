@@ -10,7 +10,7 @@ env:
   ECR_REPOSITORY: wpp-api-dev
   ECS_CLUSTER: wpp-api-cluster-dev
   ECS_SERVICE: wpp-api-service
-  ECS_TASK_DEFINITION: wpp-api-task-def
+  ECS_TASK_DEFINITION: wpp-api-task-dev
   CONTAINER_NAME: wpp-api-container
 
 jobs:
