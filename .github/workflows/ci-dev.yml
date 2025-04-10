@@ -66,33 +66,34 @@ jobs:
       - name: Update ECS task definition with new image and environment variables
         run: |
           jq --arg IMAGE "$image" \
-              --arg AUTHENTICATION_API_KEY "${{ secrets.AUTHENTICATION_API_KEY }}" \
-              --arg DATABASE_CONNECTION_URI_DEV "${{ secrets.DATABASE_CONNECTION_URI_DEV }}" \
-              --arg CACHE_REDIS_URI ${{ secrets.CACHE_REDIS_URI_DEV}} \
-              --arg SQS_ACCESS_KEY_ID "${{ secrets.AWS_ACCESS_KEY_ID }}" \
-              --arg SQS_SECRET_ACCESS_KEY "${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
-              --arg SQS_REGION "us-east-1" \
-              --arg SQS_ACCOUNT_ID "${{ secrets.SQS_ACCOUNT_ID_DEV }}" \
-              --arg SQS_QUEUE_URL "https://sqs.us-east-1.amazonaws.com/601139476230/wpp-api-queue-dev" \
-              '.containerDefinitions[0].image = $IMAGE |
-               .containerDefinitions[0].environment = [
-                 {"name": "DATABASE_ENABLED", "value": true},
-                 { "name": DATABASE_SAVE_DATA_INSTANCES: "value": true },
-                 { "name": DATABASE_SAVE_MESSAGE_UPDATE: "value": true },
-                 { "name": DATABASE_SAVE_DATA_GROUPS_NEW_MESSAGE: true },
-                 { "name": DATABASE_SAVE_DATA_CONTACTS, "value": true },
-                 { "name": DATABASE_SAVE_DATA_CHATS, "value": true },
-                 { "name": CACHE_REDIS_ENABLED, "value": true	},
-                 { "name": CACHE_REDIS_URI, "value": $CACHE_REDIS_URI },
-                 { "name": CACHE_REDIS_TTL, "value": 3600 },
-                 { "name": CACHE_REDIS_SAVE_INSTANCES, "value": true },
-                 { "name": SQS_ENABLED, "value": true },
-                 { "name": SQS_ACCESS_KEY_ID, "value": $SQS_ACCESS_KEY_ID },
-                 { "name": SQS_SECRET_ACCESS_KEY, "value": $SQS_SECRET_ACCESS_KEY },
-                 { "name": SQS_REGION, "value": $SQS_REGION },
-                 { "name": SQS_ACCOUNT_ID, "value": $SQS_ACCOUNT_ID },
-               ]' \
-              filtered-task-definition.json > updated-task-definition.json
+            --arg AUTHENTICATION_API_KEY "${{ secrets.AUTHENTICATION_API_KEY }}" \
+            --arg DATABASE_CONNECTION_URI_DEV "${{ secrets.DATABASE_CONNECTION_URI_DEV }}" \
+            --arg CACHE_REDIS_URI "${{ secrets.CACHE_REDIS_URI_DEV }}" \
+            --arg SQS_ACCESS_KEY_ID "${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            --arg SQS_SECRET_ACCESS_KEY "${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+            --arg SQS_REGION "us-east-1" \
+            --arg SQS_ACCOUNT_ID "${{ secrets.SQS_ACCOUNT_ID_DEV }}" \
+            --arg SQS_QUEUE_URL "https://sqs.us-east-1.amazonaws.com/601139476230/wpp-api-queue-dev" \
+            '.containerDefinitions[0].image = $IMAGE |
+              .containerDefinitions[0].environment = [
+                { "name": "DATABASE_ENABLED", "value": "true" },
+                { "name": "DATABASE_SAVE_DATA_INSTANCES", "value": "true" },
+                { "name": "DATABASE_SAVE_MESSAGE_UPDATE", "value": "true" },
+                { "name": "DATABASE_SAVE_DATA_GROUPS_NEW_MESSAGE", "value": "true" },
+                { "name": "DATABASE_SAVE_DATA_CONTACTS", "value": "true" },
+                { "name": "DATABASE_SAVE_DATA_CHATS", "value": "true" },
+                { "name": "CACHE_REDIS_ENABLED", "value": "true" },
+                { "name": "CACHE_REDIS_URI", "value": $CACHE_REDIS_URI },
+                { "name": "CACHE_REDIS_TTL", "value": "3600" },
+                { "name": "CACHE_REDIS_SAVE_INSTANCES", "value": "true" },
+                { "name": "SQS_ENABLED", "value": "true" },
+                { "name": "SQS_ACCESS_KEY_ID", "value": $SQS_ACCESS_KEY_ID },
+                { "name": "SQS_SECRET_ACCESS_KEY", "value": $SQS_SECRET_ACCESS_KEY },
+                { "name": "SQS_REGION", "value": $SQS_REGION },
+                { "name": "SQS_ACCOUNT_ID", "value": $SQS_ACCOUNT_ID }
+              ]' \
+            filtered-task-definition.json > updated-task-definition.json
+
 
       - name: Register new ECS task definition
         id: register-task-def
