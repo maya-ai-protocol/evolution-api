@@ -77,8 +77,8 @@ jobs:
               '.containerDefinitions[0].image = $IMAGE |
                .containerDefinitions[0].environment = [
                  {"name": "DATABASE_ENABLED", "value": true},
-                 { "name": DATABASE_SAVE_DATA_INSTANCES: value: true },
-                 { "name": DATABASE_SAVE_MESSAGE_UPDATE: value: true },
+                 { "name": DATABASE_SAVE_DATA_INSTANCES: "value": true },
+                 { "name": DATABASE_SAVE_MESSAGE_UPDATE: "value": true },
                  { "name": DATABASE_SAVE_DATA_GROUPS_NEW_MESSAGE: true },
                  { "name": DATABASE_SAVE_DATA_CONTACTS, "value": true },
                  { "name": DATABASE_SAVE_DATA_CHATS, "value": true },
