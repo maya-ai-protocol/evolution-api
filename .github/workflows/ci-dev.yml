@@ -9,7 +9,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: wpp-api-dev
   ECS_CLUSTER: wpp-api-cluster-dev
-  ECS_SERVICE: wpp-api-service
+  ECS_SERVICE: wpp-api-service-dev
   ECS_TASK_DEFINITION: wpp-api-task-dev
   CONTAINER_NAME: wpp-api-container
 
